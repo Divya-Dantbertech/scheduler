@@ -1,0 +1,875 @@
+* {
+  margin: 0;
+  padding: 0;
+ 
+}
+html {
+  font-size: 16px;
+}
+/* App Container */
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+ 
+}
+#root {
+ 
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app-container {
+  display: flex;
+  flex-direction: column; /* Stack navbar and subnavbar on top */
+  height: 972px; /* Full height */
+ max-width: 1440px;
+ width: 100%;
+ top: 0;
+ left: 0;
+ position: sticky;
+ background-color: #F5F6F8;
+ overflow: hidden;
+}
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .app-container {
+    height: 875px; /* Allow the container to adjust height dynamically */
+    overflow-x: hidden;
+  }
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media only screen and (max-width: 1440px) {
+  .app-container {
+    height: 939px;/* Flexible height for tablets */
+   overflow-x: hidden;
+  }
+}
+
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start; /* Ensure space between items */
+  flex-direction: row;
+  gap: 7vh;
+  padding: 20px 20px; /* Adjusted padding for more vertical space */
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ max-width: 1400vh;
+width: 100%;
+  height: 44px;
+  /* Allow elements to wrap for responsiveness */
+  position:relative;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #CCE4FF;
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: 100%; /* Full width initially */
+  max-width: 300vh; /* Limit the width */
+  height: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 245px; /* Center on the page */
+  margin-right: 492px;
+}
+
+/* Media query for larger screens */
+@media (min-width: 1024px) {
+  .search-container {
+      max-width: 14vh; /* Increase width for larger screens */
+      padding: 10px 15px;
+      position: relative;
+      left: 2vh;
+  }
+}
+
+/* Media query for very small screens */
+@media (max-width: 480px) {
+  .search-container {
+      width: 90%; /* Adjust to fit smaller screens */
+      margin: 0 auto; /* Center on small screens */
+  }
+}
+
+
+.search-icon {
+  font-size: 1.4rem;
+  color: #475F7B;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding-left: 10px;
+  font-size: 1rem;
+  width: 100%;
+  color: #475F7B;
+}
+
+.search-input::placeholder {
+  color: #475F7B;
+}
+.employee  {
+  margin-top: -11px;
+}
+/* AddEmployeeModal.css */
+
+.add-employee-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0079FF;
+ gap: 4px;
+  padding:4px 8px 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+ bottom: -21px;
+  width: 139px;
+  height: 32px;
+ 
+  transition: background-color 0.3s ease;
+}
+
+.add-employee-button:hover {
+  background-color: #0079FF
+}
+
+.add-employee-button .icon {
+  margin-right: 8px; /* Space between icon and text */
+  width: 16px;
+  height: 16px;
+  top: -5px;
+  left: 7px;
+  position: relative;
+}
+
+.add-employee-button .icon i {
+  font-size: 11px;
+  width: 16px;
+  height: 16px;
+}
+
+.add-employee-button .text {
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  line-height: 13.2px;
+ 
+  font-size: 9px;
+  color: #FFFFFF;
+}
+
+/* Button styling */
+.btn.export-csv {
+  display: flex;
+  width:100px ;
+  height: 30px;
+ 
+  align-items: center;
+  padding: 4px 8px 4px 8px;
+  background-color: #B3D6FF; /* Button background color */
+  color: #0079FF;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  top: 1.5vh;
+    position: relative;
+}
+
+/* Icon styling */
+.btn.export-csv .btn-icon {
+  margin-right: 8px;
+  width: 12px;
+  height: 16px;
+  color: #0079FF;
+}
+
+/* Hover effect */
+.btn.export-csv:hover {
+  background-color: #0079FF; /* Button color on hover */
+}
+@media (max-width: 768px) {
+  .btn.export-csv {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .btn.export-csv .btn-icon {
+    font-size: 16px;
+  }
+}
+
+/* Notification Icon */
+.notification-icon {
+  position: relative;
+  margin: 3vh 0.6vh;
+    font-size: 4vh;
+    width: 5vh;
+} 
+
+
+.notification-icon .notification-count {
+  position: absolute;
+  top: -5px;
+  right: 3px;
+  background-color: #ff3b3b;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 10px;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .notification-icon {
+    font-size: 5vh;
+    width: 5vh;
+  }
+
+  .notification-icon .notification-count {
+    top: -4px;
+    right: -4px;
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notification-icon {
+    font-size: 4vh;
+    width: 4vh;
+  }
+
+  .notification-icon .notification-count {
+    top: -3px;
+    right: -3px;
+    font-size: 6px;
+  }
+}
+
+/* Profile Avatar */
+.profile-avatar {
+  width: 37px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  margin: 8px 6px; /* Consistent spacing */
+}
+
+/* Hover effect for .btn.export-csv button */
+.btn.export-csv:hover {
+  background-color: #9fcaf9;
+}
+
+/* Responsive Styles */
+@media (max-width: 1440px) {
+  .navbar {
+    justify-content: space-between; /* Ensure spacing between items */
+   
+    height: 40px;
+  }
+
+  .search-container {
+    width: 76px;
+    max-width: 76px;
+    margin-left: 277px;
+    margin-right: 580px;
+
+  }
+  .employee {
+    position: absolute;
+    top: 10px; /* Adjusts vertical position upwards */
+    right: 330px; /* Moves it towards the right */
+    display: flex;
+    justify-content: center;
+    margin-left: auto; /* Keeps it aligned to the right */
+    margin-top: 0; /* Removes any vertical margin */
+  }
+  .btn.export-csv {
+    position: absolute;
+    top: 30px; /* Adjusts vertical position upwards */
+    right: 200px; /* Moves it towards the right */
+    display: flex;
+    justify-content: center;
+    margin-left: auto; /* Keeps it aligned to the right */
+    margin-top: 0; /* Removes any vertical margin */
+   
+  }
+  .notification-icon{
+    position: absolute;
+    top: 33px; /* Adjusts vertical position upwards */
+    right: 130px; /* Moves it towards the right */
+    display: flex;
+    justify-content: center;
+    margin-left: auto; /* Keeps it aligned to the right */
+    margin-top: 0;
+    width: 7vh;
+    font-size: large;
+  }
+ .profile-avatar{ position: absolute;
+  top: 25px; /* Adjusts vertical position upwards */
+  right: 66px; /* Moves it towards the right */
+  display: flex;
+  justify-content: center;
+  margin-left: auto; /* Keeps it aligned to the right */
+  margin-top: 0;
+ }
+}
+
+  
+/* subnavbar   */
+.sub-navbar {
+    background-color: #B3D6FF;
+    padding: 10px 20px; /* Add some padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    width: 1112px;
+    height: 30px;
+    left: 17px;
+    position: static;
+    margin-left: 286px;
+  }
+  
+  .right-side {
+   
+    display: flex; /* Align items inside the right side container */
+  align-items: center; /* Center vertically */
+  justify-content: flex-end; /* Align to the right side */
+  width: 95%; /* Full width of the container */
+  height: 28px;
+  top: -9px;
+  position: sticky;
+  gap: 10px;
+  }
+  /* FilterSortComponent.css */
+ 
+  /* Add this to your CSS file */
+
+
+  .sort-button-text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #475F7B;
+  }
+  .sort-button-box {
+    display: flex;
+    align-items: center;
+    background-color: #E5EEFF; /* Light blue background color */
+    padding: 3px 8px;
+    border-radius: 4px;
+ top: 4px;
+ position: relative;
+   width: 60px;
+   height: 20px;
+  
+  }
+  
+  .sort-icon {
+    color: #475F7B;
+    margin-right: -13px;
+    height: 14px;
+    top: 1px;
+    width: 21px;
+    font-weight: 500;
+    line-height: 13.2px;
+    position: sticky;
+  }
+  
+  
+  
+  
+  
+  
+  .boards label {
+    margin-right: 10px; /* Space between label and input */
+    font-weight: bold;
+  }
+  
+  .boards input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Set a width for the input */
+  }
+  
+  .boards select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px; /* Space between elements when stacked */
+    }
+  
+    .right-side {
+      justify-content: center; /* Center the right-side items on small screens */
+      width: 139%; /* Take the full width */
+      margin-left: 170px; /* Reset margin */
+      top: 0; /* Adjust for proper positioning */}
+  
+    .boards input, .boards select {
+      width: 100%; /* Make inputs full-width on small screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sub-navbar {
+      padding: 10px;
+      width: 1131px;
+    }
+  
+    .boards input, .boards select {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+  }
+ /*Add employee button 
+ /* App.css */
+
+.modal-container {
+  position: absolute;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 900px;
+  height: 549px;
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.modal-header {
+  background-color: #B3D6FF;
+max-width: 900px;
+height: 60px;
+  padding: 16px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-header h6 {
+ 
+  margin: 0;
+}
+
+.modal-body {
+  background-color: #f3f4f6;
+  padding: 24px;
+}
+
+/* Adjust padding for smaller screens */
+@media (max-width: 768px) {
+  .modal-body {
+      padding: 16px;
+      top: 50%;
+      left: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-body {
+      padding: 12px;
+      top: 50%;
+      left: 50%;
+  }
+}
+
+.input-field {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.input-field .MuiOutlinedInput-root {
+  fieldset {
+    border-color: #ddd;
+  }
+}
+
+.input-field .MuiOutlinedInput-root:hover fieldset {
+  border-color: #6c63ff;
+}
+
+.input-field .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #6c63ff;
+}
+
+.select-field {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.cancel-button {
+  color: #6c63ff;
+  border-color: #6c63ff;
+  margin-right: 11px;
+}
+
+.add-button {
+  background-color: #6c63ff;
+  color: white;
+}
+
+ 
+  /* Main-content */
+  .main-content {
+    display: flex; /* Align sidebar and table side by side */
+    flex: 1; /* Take remaining height */
+  }
+  
+ /* Sidebar.css */
+.sidebar {
+  width: 256px; /* Default width for larger screens */
+  padding: 20px;
+  background-color: #FFFFFF;
+  height: 829px;
+  position: relative;
+  top: -48px;
+  /* overflow-y: auto; Allows scrolling if content exceeds the height */
+}
+
+/* Styles for Employees Text */
+.text-employees {
+  color: #109CF1;  /* Blue color */
+  font-size: 13px; /* Font size */
+  font-weight: 500; /* Normal text */
+  line-height: 15.6px; /* Line height */
+  letter-spacing: 0.5px; /* Adjusted for clarity */
+  position: sticky;
+}
+
+/* Styles for Drafts Text */
+.text-drafts {
+  color: #334D6E;  /* Dark blue color */
+  font-size: 13px; /* Font size */
+  font-weight: 500; /* Normal text */
+  line-height: 15.6px; /* Line height */
+  letter-spacing: 0.5px; /* Adjusted for clarity */
+  position: sticky;
+}
+
+/* Styles for Emails Text */
+.text-emails {
+  color: #334D6E;  /* Dark blue color */
+  font-size: 13px; /* Font size */
+  font-weight: 500; /* Normal text */
+  line-height: 15.6px; /* Line height */
+  letter-spacing: 0.5px; /* Adjusted for clarity */
+  position: sticky;
+}
+
+/* Flex styles for list items */
+.sidebar .MuiListItem-root {
+  display: flex;
+  align-items: center;
+  padding: 10px 0; /* Added padding for better spacing */
+}
+
+.sidebar .MuiListItemText-root {
+  flex: 1;
+}
+
+.sidebar .MuiBadge-root {
+  margin-left: auto;
+}
+
+.sidebar .MuiListItemIcon-root .MuiSvgIcon-root {
+  color: #3B82F6; /* Custom color for the icon */
+  width: 20px; /* Adjusted for uniformity */
+  height: 18px; /* Adjusted for uniformity */
+  left: 15px;
+  position: sticky;
+  top: 1px;
+}
+
+/* Divider */
+.side_nav_devider {
+  width: 286px; /* Full width */
+  height: 1px;
+  background-color: #EBEFF2;
+  margin: 20px 0; /* Margin for spacing */
+  top: 590px;
+  position: relative;
+  margin-left:-31px ;
+}
+
+/* Help and Support Section */
+.help-support {
+  margin-top: 600px; /* Pushes this section to the bottom */
+  padding-top: 20px;
+  color: #334D6E; /* Grey color */
+position: relative;
+  text-align: center; /* Center align the text */
+  font-size: 13px;
+  line-height: 1.2; /* Adjusted for better readability */
+  letter-spacing: 1%; 
+  font-weight: 500;
+  margin-left: -75px;
+  /* Removed conflicting width/height, top/left, and position properties */
+  width: 100%; /* Ensure the text area expands properly */
+}
+
+
+/* Badge Styles */
+.badge-employees .MuiBadge-badge,
+.badge-drafts .MuiBadge-badge,
+.badge-emails .MuiBadge-badge {
+  background-color: #bddafd; /* Badge background color */
+  color: #67768F; /* Badge text color */
+  font-size: 10px; /* Consistent font size */
+  font-weight: 500; /* Normal weight */
+  line-height: 12px; /* Line height */
+  letter-spacing: 0.5px; /* Consistent letter spacing */
+  border-radius: 12px; /* Rounded corners */
+  padding: 0 3px; /* Padding for better appearance */
+  width: 18px;
+  height: 18px;
+  top: 0px;
+  right: 10px;
+ border-radius: 4px;
+  padding: 3px;
+  gap: 10px;
+  position: absolute;
+  transform: translateY(-50%); /* Center vertically, adjust based on container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 17%; /* Full width on smaller screens */
+    height: auto; /* Adjust height */
+  }
+
+  .sidebar .MuiListItem-root {
+    padding: 8px 0; /* Reduce padding */
+  
+        width: 258px;
+        height: 30px;
+        top: 77px;
+        left: -2px;
+        background-color: #FAFCFF;
+    }
+ 
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+   display: none;
+  }
+}
+
+/* Remove sticky and relative positions on mobile screens */
+@media (max-width: 640px) {
+  
+
+  .sidebar {
+    display: none;
+  }
+
+  
+}
+
+
+
+.table-container {
+  flex: 1; /* Take remaining space */
+  padding: 0vh; /* Add padding around the table */
+   
+  width: 1110px; /* Set a maximum width for large screens */
+  height: auto; /* Allow height to adjust */
+  min-height: 753px; /* Set a minimum height */
+  margin: 0 auto; /* Center the container */
+  border-radius: 10px;
+ 
+ 
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1110px) {
+  .table-container {
+      width: 90%; /* Reduce width on smaller screens */
+      padding: 0vh; /* Adjust padding for smaller screens */
+  }
+}
+
+/* Responsive for very small screens */
+@media (max-width: 480px) {
+  .table-container {
+      width: 100%; /* Full width for mobile */
+      padding: 0vh; /* Adjust padding */
+      min-height: 700px; /* Reduce minimum height */
+  }
+}
+@media (max-width: 640px) {
+  .table-container {
+      width: 100%; /* Full width for mobile */
+      padding: 0vh; /* Adjust padding */
+      min-height: 700px; /* Reduce minimum height */
+  }
+}
+
+/* app.css */
+.css-1dtoofl-MuiPaper-root {
+  width: 100%;
+  overflow: hidden;
+  padding: 0px;
+}
+.css-rorn0c-MuiTableContainer-root {
+  width: 100%;
+  overflow: hidden;
+  padding: 0px;
+}
+.css-kge0eu {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0;
+}
+
+.custom-table-header .table-header-cell {
+  background-color: #E9EAEF; /* Light gray background */
+  color: #0D1F36; /* Dark text color */
+ font-size: 20px;
+
+}
+
+/* Specific styles for each header cell */
+.custom-table-header .table-header-cell:nth-child(1) {
+  background-color: #E9EAEF; /* Blue color for 'Name' column */
+  color: #0D1F36;
+ 
+}
+
+
+
+
+
+
+.custom-table-header .table-header-cell:nth-child(2) {
+  background-color: #E9EAEF; /* Blue color for 'Name' column */
+  color: #0D1F36;
+ 
+}
+
+.custom-table-header .table-header-cell:nth-child(3) {
+  background-color:#E9EAEF; /* Red color for 'Email' column */
+  color: #0D1F36; 
+ 
+}
+
+.custom-table-header .table-header-cell:nth-child(4) {
+  background-color: #E9EAEF; /* Green color for 'WorkDay' column */
+  color: #0D1F36;
+
+}
+
+.custom-table-header .table-header-cell:nth-child(5) {
+  background-color:#E9EAEF; /* Orange color for 'Availability' column */
+  color: #0D1F36;
+ 
+}
+.custom-table-header .table-header-cell:nth-child(6) {
+  background-color: #E9EAEF; /* Blue color for 'Name' column */
+  color: #0D1F36;
+ 
+}
+
+/* Alternating row background for the table body */
+.table-body-row:nth-of-type(odd) {
+  background-color: #f9f9f9;
+ 
+}
+
+/* Style for Table Pagination */
+
+.custom-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #FFFFFF; /* Background color */
+  padding: 10px 20px; /* Padding for the pagination */
+  border-top: 1px solid #e0e0e0; /* Top border */
+  color: #9FA2B4; /* Text color */
+  margin-right: 11px;
+  width: 98%; /* Ensure it takes the full width */
+
+}
+
+.custom-pagination .MuiButtonBase-root {
+  color: #1976d2; /* Color for pagination buttons */
+}
+
+.custom-pagination .MuiButtonBase-root:hover {
+  background-color: #e0e0e0; /* Background color on hover */
+}
+
+.custom-pagination .MuiTypography-body2 {
+  font-weight: bold; /* Bold label text */
+}
+
+
+
+/* Style for the table row */
+.employee-row {
+  transition: background-color 0.3s ease;
+}
+
+.employee-row:hover {
+  background-color: #f0f0f0;
+}
+
+/* Style for table cells */
+.employee-cell {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+ 
+}
+
+/* Style for the checkbox cell */
+.employee-checkbox-cell {
+  padding-left: 12px;
+}
+
+/* Style for the action icons */
+.action-icon {
+  color: #1976d2;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.action-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Style for the delete icon */
+.delete-icon {
+  color: #e53935;
+}
