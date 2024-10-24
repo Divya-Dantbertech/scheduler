@@ -21,16 +21,20 @@ export const Navbar = ({addEmployee}) => {
   return (
     
           <div className="navbar">
-            
+           
+             <div class="menu-icon">
+   
+    <i class="fa fa-bars"></i>
+  </div>
             <div className="search-container">
               <FaSearch className="search-icon" />
               <input type="text" placeholder="Search" className="search-input" />
             </div>
            
            
+           <div className='right-sides'>
            
-           
-          
+        
             <div className='employee'>
           
       <AddEmployeeModal addEmployee={addEmployee} />
@@ -51,7 +55,7 @@ export const Navbar = ({addEmployee}) => {
                 className="profile-avatar"
               />
             </div>
-
+           </div> 
 
 
          

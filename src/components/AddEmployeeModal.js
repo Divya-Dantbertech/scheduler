@@ -53,9 +53,6 @@ const AddEmployeeModal = ({ addEmployee }) => {
     handleClose();
   };
 
-  const formattedWorkday = newEmployee.workday 
-  ? format(newEmployee.workday, 'MM/dd/yyyy') 
-  : 'N/A';
 
   return (
     <>
@@ -118,7 +115,9 @@ const AddEmployeeModal = ({ addEmployee }) => {
                   value={newEmployee.workday}
                   onChange={(newValue) => { 
                     if (newValue) {
-                      setNewEmployee((prev) => ({ ...prev, workday: newValue }));
+                     // Use the selected date as a formatted string (optional)
+                    const formattedDate = format(newValue, 'yyyy-MM-dd');
+                    setNewEmployee((prev) => ({ ...prev, workday: formattedDate }));
                     }}
                   }
                       renderInput={(params) => <TextField {...params} fullWidth />}
@@ -126,7 +125,7 @@ const AddEmployeeModal = ({ addEmployee }) => {
               </LocalizationProvider>
               <Box className="button-container">
             
-              <Button onClick={handleClose} variant="outlined" className="cancel-button">
+              <Button onClick={handleClose} variant="outlined" className="cancel-button" >
                 Cancel
               </Button>
               <Button onClick={handleAddEmployee} variant="contained"  className="add-button">

@@ -1,34 +1,4 @@
-// import React from 'react';
-// import { List, ListItem, ListItemText, Divider } from '@mui/material';
 
-
-// const Sidebar = () => {
-//   return (
-//     <div className="sidebar">
-//       <List component="nav" aria-label="main mailbox folders">
-//         <ListItem button>
-//           <ListItemText primary="Employees" className="employees-text"/>
-//         </ListItem>
-//         <ListItem button>
-//           <ListItemText primary="Drafts" className="drafts-text" />
-//         </ListItem>
-//         <ListItem button>
-//           <ListItemText primary="Emails" className="emails-text"/>
-//         </ListItem>
-//       </List>
-//       <Divider />
-//       <div className="help-support">
-//         <List component="nav">
-//           <ListItem button>
-//             <ListItemText primary="Help and Support" className="helps" />
-//           </ListItem>
-//         </List>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
 import React from 'react';
 import { List, ListItem, ListItemIcon, ListItemText, Badge } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
