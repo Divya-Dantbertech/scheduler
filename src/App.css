@@ -534,35 +534,71 @@ position: relative;
  /*Add employee button 
  /* App.css */
 
-.modal-container {
-  position: absolute;
-top: 50%;
+ .modal-container {
+  position: fixed; /* Ensures the modal is centered and stays in view */
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 900px;
-  height: 549px;
-  background-color: white;
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
+  width: 90%; /* Makes it responsive */
+  max-width: 900px; /* Sets a reasonable max-width */
+  height: auto; /* Allows height to adjust based on content */
+  max-height: 749px; /* Prevents modal from exceeding the viewport height */
+  background-color: #FFFFFF;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
+  overflow-y: auto; /* Enables scrolling if content overflows */
+  padding: 1px; /* Adds inner padding for aesthetics */
+gap: 10px;
 }
+
 
 .modal-header {
   background-color: #B3D6FF;
 max-width: 900px;
 height: 60px;
   padding: 16px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  gap: 10px;
 }
 
 .modal-header h6 {
- 
-  margin: 0;
+ width: 159px;
+ height: 29px;
+ font-weight: 500;
+ font-size: 24px;
+ line-height: 28.8px;
+ color: #0D1F36;
+  margin: 18px;
+  padding: 5px;
 }
 
 .modal-body {
   background-color: #f3f4f6;
   padding: 24px;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000000;
+  font-size : 16px;
+  line-height: 19.2px;
+ 
+  height: 19px;
+}
+
+.cancel-button {
+  color:#535353;
+  border-color: #6c63ff;
+  margin-right: 12px;
+  justify-content: space-around;
+  padding: 18px 36px 18px 36px;
+  gap: 10px;
+  border-radius: 8px;
+  width: 197px;
+  height: 50px;
+  
 }
 
 /* Adjust padding for smaller screens */
@@ -613,10 +649,16 @@ height: 60px;
 }
 
 .cancel-button {
-  color: #6c63ff;
+  color:#535353;
   border-color: #6c63ff;
   margin-right: 12px;
   justify-content: space-around;
+  padding: 18px 36px 18px 36px;
+  gap: 10px;
+  border-radius: 8px;
+  width: 197px;
+  height: 50px;
+  
 }
 
 .add-button {

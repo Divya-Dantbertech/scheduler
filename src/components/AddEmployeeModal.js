@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
 import {
   Modal,
   TextField,
@@ -17,16 +17,23 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { format } from 'date-fns';
 
 
-
-
 const AddEmployeeModal = ({ addEmployee }) => {
   const [open, setOpen] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
     name: '',
     email: '',
     availability: [],
-    workday: null,
+    workday: '',
   });
+
+  const [openPicker, setOpenPicker] = useState(false); // Controls DatePicker visibility
+  const [selectedDate, setSelectedDate] = useState(null); // Stores the selected date
+
+  // Function to open the date picker
+  const showPicker = () => setOpenPicker(true);
+
+  // Function to close the date picker
+  const handleClosePicker = () => setOpenPicker(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -38,6 +45,13 @@ const AddEmployeeModal = ({ addEmployee }) => {
       [name]: value,
     }));
   };
+  const handleworkdayChange = (e) => {
+    const { workday, Date } = e.target;
+    setNewEmployee((prev) => ({
+      ...prev,
+      [workday]: Date,
+    }));
+  };
 
   const handleAvailabilityChange = (e) => {
     const { value } = e.target;
@@ -46,10 +60,10 @@ const AddEmployeeModal = ({ addEmployee }) => {
       availability: typeof value === 'string' ? value.split(',') : value,
     }));
   };
-
+  
   const handleAddEmployee = () => {
     addEmployee(newEmployee);
-    setNewEmployee({ name: '', email: '', availability: [], workday: null });
+    setNewEmployee({ name: '', email: '', workday: '', availability: [] });
     handleClose();
   };
 
@@ -68,37 +82,41 @@ const AddEmployeeModal = ({ addEmployee }) => {
             <Typography variant="h6">Add Employee</Typography>
           </Box>
           <Box className="modal-body">
+          <label>Full Name</label>
             <TextField
               fullWidth
               margin="normal"
-              label="Full Name"
+             
               name="name"
               value={newEmployee.name}
               onChange={handleFormChange}
               placeholder="Enter your full name"
                className="input-field"
             />
+           <label>Email Address</label>
             <TextField
               fullWidth
               margin="normal"
-              label="Email Address"
+            
               name="email"
               value={newEmployee.email}
               onChange={handleFormChange}
               placeholder="Enter your email address"
                 className="input-field"
             />
+           <label>Non availability</label>
             <FormControl fullWidth margin="normal"  className="select-field">
-              <InputLabel>Availability</InputLabel>
+            
               <Select
                 multiple
                 name="availability"
                 value={newEmployee.availability}
                 onChange={handleAvailabilityChange}
+                placeholder='Select'
                 renderValue={(selected) => (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {selected.map((value) => (
-                      <Chip key={value} label={value} />
+                      <Chip key={value} label={value}  />
                     ))}
                   </Box>
                 )}
@@ -108,21 +126,38 @@ const AddEmployeeModal = ({ addEmployee }) => {
               </Select>
             </FormControl>
         
-          
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                 label="Workday"
-                  value={newEmployee.workday}
-                  onChange={(newValue) => { 
-                    if (newValue) {
-                     // Use the selected date as a formatted string (optional)
-                    const formattedDate = format(newValue, 'yyyy-MM-dd');
-                    setNewEmployee((prev) => ({ ...prev, workday: formattedDate }));
-                    }}
-                  }
-                      renderInput={(params) => <TextField {...params} fullWidth />}
-                />
-              </LocalizationProvider>
+            <label>Workday</label>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        open={openPicker}
+        onClose={handleClosePicker}
+        value={selectedDate}
+        onChange={(newValue) => {
+          setSelectedDate(newValue);
+          setOpenPicker(false);
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Please Select..."
+            fullWidth
+            margin="normal"
+            className="date-picker-field"
+          />
+        )}
+      />
+    
+
+      {/* Display the selected date here */}
+      {selectedDate && (
+        <div>
+          Selected Date: {selectedDate.toLocaleDateString()}
+        </div>
+      )}
+    </LocalizationProvider>
+      
+<Button onClick={showPicker}>Show picker</Button>
+
               <Box className="button-container">
             
               <Button onClick={handleClose} variant="outlined" className="cancel-button" >

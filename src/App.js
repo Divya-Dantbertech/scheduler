@@ -1,16 +1,14 @@
-import React, { useState, useMemo } from "react";
+import React, { useState,useMemo, useEffect } from "react";
 import  SideBar  from "./components/SideBar";
-
-import AddEmployeeModal from "./components/AddEmployeeModal";
-
-
 import { Navbar } from "./components/Navbar";
 import { SubNavBar } from "./components/SubNavBar";
 import EmployeeTable from "./components/EmployeeTable";
 
 
 function App() {
-  const [employees, setEmployees] = useState([
+  const [employees, setEmployees] = useState(() => {
+    const savedEmployees = localStorage.getItem("employees");
+    return savedEmployees ? JSON.parse(savedEmployees) : [
     { id: 1, name: 'Lindsey Stroud', email: 'lindsey.stroud@gmail.com', workDay: '16 Sept 2024', availability: 'Available' },
     { id: 2, name: 'Nicci Troiani', email: 'nicci.troiani@gmail.com', workDay: '16 Sept 2024', availability: 'Non-available' },
     { id: 3, name: 'George Fields', email: 'george.fields@gmail.com', workDay: '17 Sept 2024', availability: 'Available', avatar: 'https://via.placeholder.com/40' },
@@ -23,44 +21,63 @@ function App() {
     { id: 10, name: 'Judith Williams', email: 'judith.williams@gmail.com', workDay: '19 Sept 2024', availability: 'Available', avatar: 'https://via.placeholder.com/40' },
     
     
-    
+    ];
     
     // Add more employee data here...
-  ]);
+});
 
-
-  const [filterText, setFilterText] = useState('');
+  
+  const [searchTerm, setsearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
 
-  // Filter employees based on filterText (name or email)
-  const filteredEmployees = useMemo(() => {
-    return employees.filter((employee) => {
-      return (
-        employee.name.toLowerCase().includes(filterText.toLowerCase()) ||
-        employee.email.toLowerCase().includes(filterText.toLowerCase())
-      );
-    });
-  }, [employees, filterText]);
+    // Save to localStorage whenever employees change
+    useEffect(() => {
+      localStorage.setItem("employees", JSON.stringify(employees));
+    }, [employees]);
+  
 
-  // Sort employees based on sortOrder (ascending or descending)
-  const sortedEmployees = useMemo(() => {
-    const sorted = [...filteredEmployees].sort((a, b) => {
-      if (sortOrder === 'asc') {
-        return a.name.localeCompare(b.name);
-      } else {
-        return b.name.localeCompare(a.name);
-      }
-    });
-    return sorted;
-  }, [filteredEmployees, sortOrder]);
+// Define filtered and sorted employees
+const filteredEmployees = useMemo(() => {
+  let filtered = employees.filter((employee) =>
+    employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Sort filtered employees
+  return filtered.sort((a, b) => {
+    if (sortOrder === 'asc') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
+}, [employees, searchTerm, sortOrder]);
 
 
 
-  // Function to add a new employee
-  const addEmployee = (newEmployee) => {
-    setEmployees([...employees, { ...newEmployee, id: employees.length + 1, workDay: 'N/A' }]);
+ // Function to add a new employee
+ const addEmployee = (newEmployee) => {
+  setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
+};
+
+
+  
+
+  const handleFilterChange = (filterValue) => {
+    console.log("Filter value:", filterValue); // Implement filter logic here
   };
+  
+  const handleSortChange = (sortOrder) => {
+    console.log("Sort order:", sortOrder); // Implement sort logic here
+  };
+  
 
+  
+ 
+
+
+
+  
   // Function to edit an employee's information
   const editEmployee = (employeeToEdit) => {
     const updatedEmployees = employees.map((employee) =>
@@ -83,17 +100,17 @@ function App() {
    
     <div className="app-container">
     
-    <Navbar  addEmployee={addEmployee} /> {/* Pass addEmployee to Navbar */}
-    <SubNavBar/>
+    <Navbar  addEmployee={addEmployee}  dataToExport={employees}  searchTerm={searchTerm}   onSearchChange={setsearchTerm}   filteredResults={filteredEmployees}/> {/* Pass addEmployee to Navbar */}
+    <SubNavBar handleFilterChange={handleFilterChange} handleSortChange={handleSortChange}/>
     <div className="main-content">
     <SideBar
-      handleFilterChange={setFilterText}
+      handleFilterChange={setsearchTerm}
       handleSortChange={setSortOrder}
     
     />
     <div className="table-container">
    
-      <EmployeeTable employees={employees} 
+      <EmployeeTable employees={filteredEmployees} 
        onEdit={editEmployee} 
        onDelete={deleteEmployee} 
        />

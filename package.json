@@ -12,7 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^6.1.2",
     "@mui/lab": "^6.0.0-beta.10",
-    "@mui/material": "^6.1.2",
+    "@mui/material": "^6.1.5",
     "@mui/utils": "^6.1.2",
     "@mui/x-date-pickers": "^7.19.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -20,11 +20,14 @@
     "@testing-library/user-event": "^13.5.0",
     "date-fns": "^2.30.0",
     "file-saver": "^2.0.5",
+    "json2csv": "^6.0.0-alpha.2",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",
+    "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
     "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

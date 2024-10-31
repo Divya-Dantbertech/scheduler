@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import FilterSortComponent from './FilterSortComponent';
-export const SubNavBar = ({ handleFilterChange, handleSortChange }) => {
-  const [filter, setFilter] = useState('');
-  const [sort, setSort] = useState('asc'); // 'asc' or 'desc'
+
+
+
+  export const SubNavBar = ({ handleFilterChange, handleSortChange }) => {
+    const [filter, setFilter] = useState('');
+    const [sort, setSort] = useState('asc'); // 'asc' or 'desc'
 
    // Handle filter input change
-   const onFilterChange = (e) => {
+   const onFilterChange = () => {
     // Here you might have a prompt or an input dialog for the filter
     const newFilter = prompt('Enter filter text:');
+    if (newFilter !== null);
     setFilter(newFilter);
     handleFilterChange(newFilter); // Pass the value to parent component
   };
