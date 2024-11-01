@@ -84,7 +84,7 @@ body {
   border-radius: 8px;
   padding: 6px 12px;
   width: 100%;
-  max-width: 90px; /* Reasonable max-width */
+  max-width: 254px; /* Reasonable max-width */
   margin: 289px; /* Center the container */
   position: relative;
   height: 36px;
@@ -93,7 +93,7 @@ body {
 }
 
 .search-icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #475F7B;
 }
 
@@ -103,7 +103,8 @@ body {
   background-color: transparent;
   padding-left: 10px;
   font-size: 1rem;
-  width: 100%;
+  width: 160%;
+  text-transform: capitalize;
   color: #475F7B;
 }
 
@@ -500,8 +501,8 @@ cursor: pointer;
   
   .right-side {
     justify-content: flex-end;
-    width: 430%;
-    margin-left: 0;
+    width: 700%;
+   
     top: 0;
   }
   
@@ -606,7 +607,9 @@ label {
  
   height: 19px;
 }
-
+.placeholder-item {
+  color: #B3B3B3;
+}
 .cancel-button {
   color:#535353;
   border-color: #6c63ff;

@@ -118,9 +118,10 @@ const AddEmployeeModal = ({ addEmployee }) => {
                 name="availability"
                 value={newEmployee.availability}
                 onChange={handleAvailabilityChange}
-                placeholder='Select'
+              
                
               >
+           
                 <MenuItem value="Available">Available</MenuItem>
                 <MenuItem value="Non-available">Non-available</MenuItem>
               </Select>
