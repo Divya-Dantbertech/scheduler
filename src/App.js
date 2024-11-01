@@ -67,10 +67,11 @@ const filteredEmployees = useMemo(() => {
     console.log("Filter value:", filterValue); // Implement filter logic here
   };
   
-  const handleSortChange = (sortOrder) => {
-    console.log("Sort order:", sortOrder); // Implement sort logic here
-  };
-  
+ // Update handleSortChange to toggle sortOrder
+ const handleSortChange = () => {
+  const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+  setSortOrder(newSortOrder); // Update sort order in state
+};
 
   
  

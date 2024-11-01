@@ -440,18 +440,37 @@ position: relative;
   position: sticky;
   top: 0;
 }
-
-/* Sort button styling */
-.sort-button-box {
-  display: flex;
-  align-items: center;
-  background-color: #E5EEFF;
-  padding: 3px 8px;
+.filter-button {
+  width: 63px;
+  height: 24px;
   border-radius: 4px;
-  width: 70px;
-  height: 20px;
-  position: relative;
-  top: 4px;
+  padding: 4px 8px 4px 8px;
+  gap: 5px;
+  border: none;
+  background:none;
+  color: #475F7B;
+cursor: pointer;
+}
+.filter-button:hover {
+  color: rgba(7, 83, 158, 0.5);
+  transform: scale(1.1); /* Scale up the element */
+}
+.sort-button {
+ width: 59px;
+ height: 30px;
+ border-radius: 4px;
+ padding: 3px 5px 3px 2px;
+ gap: 5px;
+ background-color: #E5EEFF;
+ justify-content: center;
+  color: #475F7B;
+ border: none;
+ cursor: pointer;
+}
+
+.sort-button:hover {
+  color: rgba(7, 83, 158, 0.5);
+  transform: scale(1.1); /* Scale up the element */
 }
 
 /* Boards input and select styling */
