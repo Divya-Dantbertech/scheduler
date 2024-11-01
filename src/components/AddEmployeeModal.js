@@ -6,15 +6,15 @@ import {
   Box,
   Typography,
   FormControl,
-  InputLabel,
+
   Select,
   MenuItem,
-  Chip,
+
 } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const AddEmployeeModal = ({ addEmployee }) => {
@@ -22,9 +22,13 @@ const AddEmployeeModal = ({ addEmployee }) => {
   const [newEmployee, setNewEmployee] = useState({
     name: '',
     email: '',
-    availability: [],
+    availability: '',
     workday: '',
   });
+
+  
+ 
+
 
   const [openPicker, setOpenPicker] = useState(false); // Controls DatePicker visibility
   const [selectedDate, setSelectedDate] = useState(null); // Stores the selected date
@@ -45,24 +49,26 @@ const AddEmployeeModal = ({ addEmployee }) => {
       [name]: value,
     }));
   };
-  const handleworkdayChange = (e) => {
-    const { workday, Date } = e.target;
+  
+  const handleDateChange = (newValue) => {
+    setSelectedDate(newValue);
     setNewEmployee((prev) => ({
       ...prev,
-      [workday]: Date,
+      workday: newValue, // Store the selected date as workday
     }));
   };
-
+  
   const handleAvailabilityChange = (e) => {
     const { value } = e.target;
     setNewEmployee((prev) => ({
       ...prev,
-      availability: typeof value === 'string' ? value.split(',') : value,
+      availability:  value,
     }));
   };
   
   const handleAddEmployee = () => {
-    addEmployee(newEmployee);
+    const newEmployeeWithID = { ...newEmployee, id: uuidv4() }; // Assign a unique ID
+    addEmployee(newEmployeeWithID);
     setNewEmployee({ name: '', email: '', workday: '', availability: [] });
     handleClose();
   };
@@ -108,18 +114,12 @@ const AddEmployeeModal = ({ addEmployee }) => {
             <FormControl fullWidth margin="normal"  className="select-field">
             
               <Select
-                multiple
+               
                 name="availability"
                 value={newEmployee.availability}
                 onChange={handleAvailabilityChange}
                 placeholder='Select'
-                renderValue={(selected) => (
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {selected.map((value) => (
-                      <Chip key={value} label={value}  />
-                    ))}
-                  </Box>
-                )}
+               
               >
                 <MenuItem value="Available">Available</MenuItem>
                 <MenuItem value="Non-available">Non-available</MenuItem>
@@ -132,10 +132,7 @@ const AddEmployeeModal = ({ addEmployee }) => {
         open={openPicker}
         onClose={handleClosePicker}
         value={selectedDate}
-        onChange={(newValue) => {
-          setSelectedDate(newValue);
-          setOpenPicker(false);
-        }}
+        onChange={handleDateChange}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -143,20 +140,20 @@ const AddEmployeeModal = ({ addEmployee }) => {
             fullWidth
             margin="normal"
             className="date-picker-field"
+          
           />
         )}
       />
     
-
-      {/* Display the selected date here */}
-      {selectedDate && (
-        <div>
-          Selected Date: {selectedDate.toLocaleDateString()}
-        </div>
-      )}
+    <Button onClick={showPicker}>Show picker</Button>
     </LocalizationProvider>
       
-<Button onClick={showPicker}>Show picker</Button>
+  {/* Display selected date in the form */}
+  {selectedDate && (
+              <Typography variant="body2">
+                Selected Date: {selectedDate.toLocaleDateString()}
+              </Typography>
+            )}
 
               <Box className="button-container">
             

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import FilterSortComponent from './FilterSortComponent';
 import { FaSortAlphaDown } from "react-icons/fa";
 import { MdFilterList } from "react-icons/md";
 
