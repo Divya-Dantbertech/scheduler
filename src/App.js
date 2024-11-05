@@ -3,8 +3,7 @@ import  SideBar  from "./components/SideBar";
 import { Navbar } from "./components/Navbar";
 import { SubNavBar } from "./components/SubNavBar";
 import EmployeeTable from "./components/EmployeeTable";
-
-
+import EditEmployeeModal from "./components/EditEmployeeModal";
 function App() {
   const [employees, setEmployees] = useState(() => {
     const savedEmployees = localStorage.getItem("employees");
@@ -29,7 +28,8 @@ function App() {
   
   const [searchTerm, setsearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
-
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [employeeToEdit, setEmployeeToEdit] = useState(null);
     // Save to localStorage whenever employees change
     useEffect(() => {
       localStorage.setItem("employees", JSON.stringify(employees));
@@ -74,19 +74,25 @@ const filteredEmployees = useMemo(() => {
 };
 
   
- 
-
-
-
   
-  // Function to edit an employee's information
-  const editEmployee = (employeeToEdit) => {
-    const updatedEmployees = employees.map((employee) =>
-      employee.id === employeeToEdit.id ? { ...employeeToEdit } : employee
-    );
-    setEmployees(updatedEmployees);
-    alert(`Editing Employee: ${employeeToEdit.name}`);
+  
+  
+   // Open edit modal and set the employee to be edited
+   const handleEditClick = (employee) => {
+    setEmployeeToEdit(employee);
+    setEditModalOpen(true);
   };
+  // Update the employee in the list
+  const updateEmployee = (updatedEmployee) => {
+    setEmployees((prevEmployees) =>
+      prevEmployees.map((employee) =>
+        employee.id === updatedEmployee.id ? updatedEmployee : employee
+      )
+    );
+    setEditModalOpen(false); // Close modal after saving changes
+  };
+
+
 
   // Function to delete an employee
   const deleteEmployee = (id) => {
@@ -112,11 +118,21 @@ const filteredEmployees = useMemo(() => {
     <div className="table-container">
    
       <EmployeeTable employees={filteredEmployees} 
-       onEdit={editEmployee} 
+       onEdit={handleEditClick} 
        onDelete={deleteEmployee} 
        />
        </div>
       </div>
+  {/* Edit Employee Modal */}
+  {editModalOpen && employeeToEdit && (
+        <EditEmployeeModal
+          employee={employeeToEdit}
+          onSave={updateEmployee}
+          onClose={() => setEditModalOpen(false)}
+        />
+      )}
+
+
     </div>
 
   );

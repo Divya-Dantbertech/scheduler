@@ -329,9 +329,9 @@ position: relative;
 
   /* Search input hidden on smaller screens */
   .search-container {
-    max-width: 80px; /* Smaller width for small screens */
+    max-width: 90px; /* Smaller width for small screens */
     padding: 4px;
-    margin-left: 271px; /* Automatically adjust margins */
+    margin-left: 31px; /* Automatically adjust margins */
     margin-right: auto;
     justify-content: center;
    
@@ -345,7 +345,7 @@ position: relative;
     gap: 0px;
     top: 1rem;
     position: absolute;
-    right: 1rem;
+    right: 9rem;
   
   }
   /* Adjust button size */
@@ -392,7 +392,10 @@ position: relative;
   @media (max-width: 320px) {
     .search-container {
         max-width: 40px; /* Tiny size for very small screens */
-        justify-content: flex-end;
+        justify-content: center;
+        position: absolute; 
+            left: -1.6rem;
+            top: -17rem;
     }}
   .right-sides {
     width: 40%;
@@ -959,6 +962,103 @@ position: relative;
   background-color: #f9f9f9;
  
 }
+
+
+
+/* styles.css */
+
+.edit {
+  position: fixed; /* Fix the position to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex; /* Use flexbox to center the modal */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* Ensure the modal is above other content */
+}
+
+.edit-content {
+  background-color: white; /* Background color of the modal */
+  padding: 0px; /* Padding around the content */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  width: 500px; /* Set a fixed width */
+  max-width: 90%; /* Responsive width */
+}
+
+.edit h2 {
+  background-color: #B3D6FF;
+  max-width: 900px;
+  height: 50%;
+  padding: 16px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+
+.edit label {
+  display: block; /* Ensure labels are block elements */
+  margin: 49px;
+ 
+  position: relative;
+
+}
+.availability-select {
+  width: 160px; /* Set the desired width for the dropdown */
+  padding: 8px; /* Padding for the dropdown */
+  border: 1px solid #ccc; /* Border for the dropdown */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #fff; /* Background color */
+  transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+/* Focus state for the availability select */
+.availability-select:focus {
+  border-color: #28a745; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.edit input {
+  width: 100%; /* Full width for inputs */
+  padding: 8px; /* Padding for inputs */
+  border: 1px solid #ccc; /* Border for inputs */
+  border-radius: 4px; /* Rounded corners */
+}
+.button-container {
+  display: flex; /* Use flexbox to align buttons */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between the buttons */
+  margin-top: -10px; /* Space above the button container */
+}
+
+.edit button {
+  margin-top: 10px; /* Space between buttons */
+  padding: 20px 20px; /* Padding for buttons */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  position: relative;
+  top: -1rem;
+
+}
+/* Specific styles for Save and Cancel buttons */
+.edit .save-button {
+  background-color: #B3D6FF; /* Green for Save */
+  max-width: 16%;
+
+}
+
+.edit .cancel-button {
+  background-color: #dc3545; /* Red for Cancel */
+  color: white;
+max-width: 15%;
+}
+
+
+
 
 /* Style for Table Pagination */
 
