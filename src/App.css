@@ -114,7 +114,9 @@ body {
 .right-sides {
   width: 30%;
   display: flex;
-  gap: 15px;
+  gap: 10px;
+  position: absolute;
+  right: 65px;
 
 }
 /* Add Employee Button */
@@ -299,7 +301,7 @@ position: relative;
     width: 52%;
     display: flex;
     gap: 0px;
-    right: -96px;
+    right: -19px;
     position: relative;
   }
   /* Notification icon and export button */
@@ -455,6 +457,24 @@ position: relative;
   color: #475F7B;
 cursor: pointer;
 }
+.filter-input {
+  display: none; /* Ensure it displays inline */
+
+}
+.availability-filter-dropdown {
+
+  border: none;
+    background: none;
+    color: #475F7B;
+    cursor: pointer;
+    border-color: none;
+}
+
+.availability-filter-dropdown:hover {
+  border-color: none;
+}
+
+
 .filter-button:hover {
   color: rgba(7, 83, 158, 0.5);
   transform: scale(1.1); /* Scale up the element */
@@ -503,12 +523,15 @@ cursor: pointer;
   }
   
   .right-side {
-    justify-content: flex-end;
-    width: 700%;
-   
+    justify-content:flex-end;
+    width: 618%;
+   display:flex;
+position:sticky;
+align-items:center;
+margin-left:0;
     top: 0;
   }
-  
+ 
   .boards input, .boards select {
     width: 100%;
   }

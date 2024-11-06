@@ -25,32 +25,37 @@ function App() {
     // Add more employee data here...
 });
 
-  
+
   const [searchTerm, setsearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [employeeToEdit, setEmployeeToEdit] = useState(null);
-    // Save to localStorage whenever employees change
+  const [displayedItems, setDisplayedItems] = useState([]);
+  // Save to localStorage whenever employees change
     useEffect(() => {
       localStorage.setItem("employees", JSON.stringify(employees));
     }, [employees]);
+ 
+    const clearSearchTerm = () => 
+      setsearchTerm(''); // Clear search term
   
 
-// Define filtered and sorted employees
-const filteredEmployees = useMemo(() => {
-  let filtered = employees.filter((employee) =>
+
+ // Update displayedItems whenever employees, searchTerm, or sortOrder changes
+ useEffect(() => {
+  let filtered = employees.filter(employee =>
     employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Sort filtered employees
-  return filtered.sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return a.name.localeCompare(b.name);
-    } else {
-      return b.name.localeCompare(a.name);
-    }
+  // Apply sorting
+  filtered = filtered.sort((a, b) => {
+    return sortOrder === 'asc'
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name);
   });
+
+  setDisplayedItems(filtered);
 }, [employees, searchTerm, sortOrder]);
 
 
@@ -58,14 +63,22 @@ const filteredEmployees = useMemo(() => {
  // Function to add a new employee
  const addEmployee = (newEmployee) => {
   setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
+clearSearchTerm(); 
 };
 
+const handleFilterChange = ( filterText,availability) => {
+  let filteredItems = employees.filter(employee => 
+      employee.name.toLowerCase().includes(filterText.toLowerCase())
+  );
 
-  
+  // Further filter based on availability if selected
+  if (availability) {
+      filteredItems = filteredItems.filter(employee => employee.availability === availability);
+  }
 
-  const handleFilterChange = (filterValue) => {
-    console.log("Filter value:", filterValue); // Implement filter logic here
-  };
+  setDisplayedItems(filteredItems); // Set the filtered items to display
+};
+
   
  // Update handleSortChange to toggle sortOrder
  const handleSortChange = () => {
@@ -89,6 +102,7 @@ const filteredEmployees = useMemo(() => {
         employee.id === updatedEmployee.id ? updatedEmployee : employee
       )
     );
+    clearSearchTerm();
     setEditModalOpen(false); // Close modal after saving changes
   };
 
@@ -98,6 +112,7 @@ const filteredEmployees = useMemo(() => {
   const deleteEmployee = (id) => {
     const updatedEmployees = employees.filter((employee) => employee.id !== id);
     setEmployees(updatedEmployees);
+    clearSearchTerm();
     alert(`Deleted Employee with ID: ${id}`);
   };
 
@@ -107,8 +122,10 @@ const filteredEmployees = useMemo(() => {
    
     <div className="app-container">
     
-    <Navbar  addEmployee={addEmployee}  dataToExport={employees}  searchTerm={searchTerm}   onSearchChange={setsearchTerm}   filteredResults={filteredEmployees}/> {/* Pass addEmployee to Navbar */}
-    <SubNavBar handleFilterChange={handleFilterChange} handleSortChange={handleSortChange}/>
+    <Navbar  addEmployee={addEmployee}  dataToExport={employees}  searchTerm={searchTerm}    onSearchChange={setsearchTerm}  clearSearchTerm={clearSearchTerm} filteredResults={displayedItems}/> {/* Pass addEmployee to Navbar */}
+    <SubNavBar handleFilterChange={handleFilterChange}  clearSearchTerm={clearSearchTerm}   handleSortChange={handleSortChange}/>
+     {/* Render the list of displayed items */}
+    
     <div className="main-content">
     <SideBar
       handleFilterChange={setsearchTerm}
@@ -117,9 +134,11 @@ const filteredEmployees = useMemo(() => {
     />
     <div className="table-container">
    
-      <EmployeeTable employees={filteredEmployees} 
+      <EmployeeTable 
+       employees={displayedItems}
        onEdit={handleEditClick} 
        onDelete={deleteEmployee} 
+       clearSearchTerm={clearSearchTerm}
        />
        </div>
       </div>
