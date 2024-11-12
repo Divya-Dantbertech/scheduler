@@ -38,6 +38,9 @@ const EmployeeTable = ({ employees, onEdit, onDelete }) => {
     <Paper className="paper-container" 
      sx={{
       padding: '0px', 
+      width:'95%',
+      marginLeft: '0', // New left marginpx
+      transition: 'margin-left 0.3s ease', // Transition effect for margin-left
       margin: '30px', 
       backgroundColor: '#ffffff', 
       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
@@ -45,7 +48,7 @@ const EmployeeTable = ({ employees, onEdit, onDelete }) => {
       textAlign: 'center',
       '&:hover': {
      boxShadow: "0px 6px 15px 0px #0000001A",
-
+     overflow:'scroll',
       }
     }}>
       <TableContainer className="table-container">

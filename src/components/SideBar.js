@@ -3,9 +3,15 @@ import React from 'react';
 import { List, ListItem, ListItemIcon, ListItemText, Badge } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 
-const Sidebar = () => {
+
+
+
+const Sidebar = ({ isOpen, onClose}) => {
   return (
-    <div className="sidebar">
+    
+   
+    <div className={`sidebar-menu ${isOpen ? 'open' : ''}`}>
+   
       <List>
         <ListItem button>
           <ListItemIcon>
@@ -38,6 +44,7 @@ const Sidebar = () => {
         <span>Help and Support</span>
       </div>
     </div>
+   
   );
 };
 

@@ -1,20 +1,40 @@
-import React,{useState} from 'react'
-import AddEmployeeModal from "./AddEmployeeModal"; // Import the modal
 
-import { FaSearch, FaDownload, FaBell } from 'react-icons/fa';
+import React,{useState,useEffect} from 'react'
+import AddEmployeeModal from "./AddEmployeeModal"; // Import the modal
+import SideBar from "./SideBar";
+import { FaSearch, FaDownload, FaBell,FaBars } from 'react-icons/fa';
 import Papa from "papaparse";
 
 import { saveAs } from "file-saver";
 
 
-export const Navbar = ({addEmployee, dataToExport =[ ],searchTerm, onSearchChange }) => {
+export const Navbar = ({addEmployee, dataToExport =[ ],searchTerm, onSearchChange,  }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notificationCount, setNotificationCount] = useState(3); // Use state if dynamic
  
   const [filteredResults, setFilteredResults] = useState(dataToExport); // State for filtered results
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
 
- // App component (as previously written, adjusted for reference)
+// Detect screen width changes and set sidebar state
+useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth >= 769) {
+      setIsSidebarOpen(true); // Show sidebar on desktop
+    } else {
+      setIsSidebarOpen(false); // Hide sidebar on mobile by default
+    }
+  };
+  window.addEventListener("resize", handleResize);
+  handleResize(); // Initialize on mount
 
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+ const toggleSidebar = () => {
+  if (window.innerWidth <= 768) { // Only toggle on mobile screens
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+};
 
 
   // Open the modal when the button is clicked
@@ -22,11 +42,14 @@ export const Navbar = ({addEmployee, dataToExport =[ ],searchTerm, onSearchChang
     setIsModalOpen(true);
   };
 
+
+  
   // Close the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
   
+ 
   const handleExportCSV = () => {
     try {
       // Convert JSON data to CSV format
@@ -56,14 +79,33 @@ export const Navbar = ({addEmployee, dataToExport =[ ],searchTerm, onSearchChang
   
 
 };
-
+ 
   return (
     
           <div className="navbar">
            
-             <div class="menu-icon">
-   
-    <i class="fa fa-bars"></i>
+           <div className="menu-icon" onClick={toggleSidebar} togglesidebar={toggleSidebar}>
+        <FaBars />
+    
+      
+      {isSidebarOpen && window.innerWidth <= 768 && (
+           <div className="sidebar-overlay open" onClick={toggleSidebar}>
+          <div className="sideBar open"
+         
+          onClick={(e) => e.stopPropagation()}>
+         
+         <SideBar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+         
+       </div>
+       </div>
+      )}
+   {/* Sidebar for desktop (always visible) */}
+   {window.innerWidth > 768 && (
+        <div className="sideBar open">
+          <SideBar />
+        </div>
+      )}
+
   </div> 
   <div className="search-container">
         <FaSearch className="search-icon" />
@@ -110,6 +152,7 @@ export const Navbar = ({addEmployee, dataToExport =[ ],searchTerm, onSearchChang
                 className="profile-avatar"
               />
             </div>
+          
            </div> 
 
 
