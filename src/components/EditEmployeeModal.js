@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns"; // Import from date-fns
 
 function EditEmployeeModal({ employee, onSave, onClose }) {
+  const initialWorkDay = employee.workDay && !isNaN(new Date(employee.workDay)) 
+  ? new Date(employee.workDay) 
+  : new Date();
   const [name, setName] = useState(employee.name);
   const [email, setEmail] = useState(employee.email);
-  const [workDay, setWorkDay] = useState(employee.workDay);
+  const [workDay, setWorkDay] = useState(initialWorkDay);
+
   const [availability, setAvailability] = useState(employee.availability);
 
   const handleSave = () => {
@@ -11,7 +18,10 @@ function EditEmployeeModal({ employee, onSave, onClose }) {
       ...employee,
       name,
       email,
-      workDay,
+       // Ensure workDay is a valid date before formatting
+       workDay: workDay instanceof Date && !isNaN(workDay) 
+       ? format(workDay, "dd MMMM yyyy") 
+       : null,
       availability
     };
     onSave(updatedEmployee);
@@ -31,7 +41,11 @@ function EditEmployeeModal({ employee, onSave, onClose }) {
         </label>
         <label>
           Work Day
-          <input type="text" value={workDay} onChange={(e) => setWorkDay(e.target.value)} />
+          <DatePicker
+            selected={workDay}
+            onChange={setWorkDay}
+            dateFormat="dd MMMM yyyy" // Display format in DatePicker
+          />
         </label>
         <label>
           Availability

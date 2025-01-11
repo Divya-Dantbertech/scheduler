@@ -11,18 +11,22 @@ import {
 } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { v4 as uuidv4 } from 'uuid';
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns"; // Import from date-fns
+
 
 const AddEmployeeModal = ({ addEmployee }) => {
+  const initialWorkDay = new Date(); // Default to current date
   const [open, setOpen] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
     name: '',
     email: '',
     availability: '',
-    workday: '',
+    workDay: format(initialWorkDay, 'dd MMMM yyyy'),
   });
   const [selectedDate, setSelectedDate] = useState(null);
+  const [workDay, setWorkDay] = useState(initialWorkDay);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -31,9 +35,9 @@ const AddEmployeeModal = ({ addEmployee }) => {
       name: '',
       email: '',
       availability: '',
-      workday: '',
+      workDay: format(new Date(), 'dd MMMM yyyy'),
     });
-    setSelectedDate(null); // Clear date when closing
+    setSelectedDate(null);
   };
 
   const handleFormChange = (e) => {
@@ -48,22 +52,14 @@ const AddEmployeeModal = ({ addEmployee }) => {
     setSelectedDate(newValue);
     setNewEmployee((prev) => ({
       ...prev,
-      workday: newValue ? newValue.toLocaleDateString() : '', // Format date to string
-    }));
-  };
-
-  const handleAvailabilityChange = (e) => {
-    const { value } = e.target;
-    setNewEmployee((prev) => ({
-      ...prev,
-      availability: value,
+      workDay: newValue ? format(newValue, "dd MMMM yyyy") : '', // Format the date properly
     }));
   };
 
   const handleAddEmployee = () => {
     const newEmployeeWithID = { ...newEmployee, id: uuidv4() };
     addEmployee(newEmployeeWithID);
-    handleClose(); // Close modal and reset form
+    handleClose();
   };
 
   return (
@@ -100,42 +96,25 @@ const AddEmployeeModal = ({ addEmployee }) => {
               placeholder="Enter your email address"
               className="input-field"
             />
-            <label>Non availability</label>
+            <label>Availability</label>
             <FormControl fullWidth margin="normal" className="select-field">
               <Select
                 name="availability"
                 value={newEmployee.availability}
-                onChange={handleAvailabilityChange}
+                onChange={handleFormChange}
               >
                 <MenuItem value="Available">Available</MenuItem>
                 <MenuItem value="Non-available">Non-available</MenuItem>
               </Select>
             </FormControl>
-
             <label>Workday</label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="Select workday"
-                    fullWidth
-                    margin="normal"
-                    className="date-picker-field"
-                  />
-                )}
-              />
-            </LocalizationProvider>
-
-            {/* Display selected date in the form */}
-            {selectedDate && (
-              <Typography variant="body2" className="selected-date">
-                Selected Workday: {selectedDate.toLocaleDateString()}
-              </Typography>
-            )}
-
+            <DatePicker
+              value={workDay}
+              onChange={handleDateChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
             <Box className="button-container">
               <Button onClick={handleClose} variant="outlined" className="cancel-button">
                 Cancel

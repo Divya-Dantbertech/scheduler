@@ -123,23 +123,29 @@ const handleFilterChange = ( filterText,availability) => {
     <div className="app-container">
     
     <Navbar  addEmployee={addEmployee}  dataToExport={employees}  searchTerm={searchTerm}    onSearchChange={setsearchTerm}  clearSearchTerm={clearSearchTerm} filteredResults={displayedItems}/> {/* Pass addEmployee to Navbar */}
-    <SubNavBar handleFilterChange={handleFilterChange}  clearSearchTerm={clearSearchTerm}   handleSortChange={handleSortChange}/>
-     {/* Render the list of displayed items */}
-    
+   
+    <div className="sidebar-area">
     <div className="main-content">
     <SideBar
       handleFilterChange={setsearchTerm}
       handleSortChange={setSortOrder}
     
     />
+    
+    <div className="content-area">
+     <SubNavBar handleFilterChange={handleFilterChange}  clearSearchTerm={clearSearchTerm}   handleSortChange={handleSortChange}/>
+     {/* Render the list of displayed items */}
     <div className="table-container">
    
+   <div class="table-scroll-wrapper">
       <EmployeeTable 
        employees={displayedItems}
        onEdit={handleEditClick} 
        onDelete={deleteEmployee} 
        clearSearchTerm={clearSearchTerm}
+       
        />
+       </div>
        </div>
       </div>
   {/* Edit Employee Modal */}
@@ -153,7 +159,8 @@ const handleFilterChange = ( filterText,availability) => {
 
 
     </div>
-
+</div>
+</div>
   );
 }
 
